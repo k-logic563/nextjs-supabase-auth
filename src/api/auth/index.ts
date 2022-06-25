@@ -7,8 +7,12 @@ export const signup = (data: RequestSignupData) => {
     password: data.password,
   }
 
+  const metaData = {
+    company_name: data.company_name,
+  }
+
   return supabase.auth.signUp(requiredData, {
-    data,
+    data: metaData,
   })
 }
 

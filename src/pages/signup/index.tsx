@@ -39,7 +39,7 @@ const Signup: NextPage<Props> = () => {
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, isSubmitting },
   } = useForm<RequestSignupData>({
     resolver: yupResolver(schema),
   })
@@ -93,7 +93,7 @@ const Signup: NextPage<Props> = () => {
                 )}
               />
             </Form.Group>
-            <Button variant="primary" type="submit">
+            <Button variant="primary" type="submit" disabled={isSubmitting}>
               登録する
             </Button>
           </Form>

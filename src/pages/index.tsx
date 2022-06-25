@@ -17,17 +17,19 @@ export const getServerSideProps = async ({
   req,
 }: GetServerSidePropsContext) => {
   const { user } = await supabase.auth.api.getUserByCookie(req)
+  if (!user) {
+    return {
+      props: {},
+      redirect: {
+        destination: '/signin',
+      },
+    }
+  }
   return { props: { user } }
 }
 
 const Home: NextPage<Props> = ({ user }) => {
   const { push } = useRouter()
-  useEffect(() => {
-    const user = supabase.auth.user()
-    if (!user) {
-      location.href = '/signin'
-    }
-  }, [])
 
   const handleClickSignout = async () => {
     await api.auth.signout()
